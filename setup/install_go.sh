@@ -14,8 +14,15 @@ tar -xf go1.13.3.linux-amd64.tar.gz --checkpoint --checkpoint-action=$act -C /us
 rm go1.13.3.linux-amd64.tar.gz
 
 
+
 echo "export GOROOT=/usr/local/go" >> ~/.profile
 echo "export PATH=$PATH:/usr/local/go/bin" >> ~/.profile
+echo "export GOROOT=/usr/local/go" >> ~/.bashrc
+
+GOPATH=${1:-$PWD} 
+echo $GOPATH
+echo "export GOPATH=$GOPATH" >> ~/.profile
+echo "export GOPATH=$GOPATH" >> ~/.bashrc
 
 source ~/.profile
 source ~/.bashrc

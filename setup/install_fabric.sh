@@ -7,11 +7,11 @@ then
     exit 0
 fi
 
-if [ -z $GOPATH ]; then
-    echo "GOPATH not set!!! Please set the Go Path"
-    echo "Aborting!!!"
-    exit 0
-fi
+# if [ -z $GOPATH ]; then
+#     echo "GOPATH not set!!! Please set the Go Path"
+#     echo "Aborting!!!"
+#     exit 0
+# fi
 
 
 export PATH=$PATH:$GOROOT/bin
