@@ -14,7 +14,7 @@ def main():
     # args = parser.parse_args()
     # print(args.accumulate(args.integers))
 
-    config = CryptoConfig()
+    config = CryptoConfig(4, 1)
     config.set_default_values()
 
 if __name__ == "__main__":main()
