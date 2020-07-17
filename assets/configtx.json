@@ -1,0 +1,450 @@
+{
+  "Organizations": [
+    {
+      "Name": "OrdererOrg",
+      "ID": "OrdererMSP",
+      "MSPDir": "crypto-config/ordererOrganizations/digiblocks.com/msp",
+      "Policies": {
+        "Readers": {
+          "Type": "Signature",
+          "Rule": "OR('OrdererMSP.member')"
+        },
+        "Writers": {
+          "Type": "Signature",
+          "Rule": "OR('OrdererMSP.member')"
+        },
+        "Admins": {
+          "Type": "Signature",
+          "Rule": "OR('OrdererMSP.admin')"
+        }
+      }
+    },
+    {
+      "Name": "Org1MSP",
+      "ID": "Org1MSP",
+      "MSPDir": "crypto-config/peerOrganizations/org1.digiblocks.com/msp",
+      "Policies": {
+        "Readers": {
+          "Type": "Signature",
+          "Rule": "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+        },
+        "Writers": {
+          "Type": "Signature",
+          "Rule": "OR('Org1MSP.admin', 'Org1MSP.client')"
+        },
+        "Admins": {
+          "Type": "Signature",
+          "Rule": "OR('Org1MSP.admin')"
+        },
+        "Endorsement": {
+          "Type": "Signature",
+          "Rule": "OR('Org1MSP.peer')"
+        }
+      },
+      "AnchorPeers": [
+        {
+          "Host": "peer0.org1.digiblocks.com",
+          "Port": 7051
+        }
+      ]
+    },
+    {
+      "Name": "Org2MSP",
+      "ID": "Org2MSP",
+      "MSPDir": "crypto-config/peerOrganizations/org2.digiblocks.com/msp",
+      "Policies": {
+        "Readers": {
+          "Type": "Signature",
+          "Rule": "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+        },
+        "Writers": {
+          "Type": "Signature",
+          "Rule": "OR('Org2MSP.admin', 'Org2MSP.client')"
+        },
+        "Admins": {
+          "Type": "Signature",
+          "Rule": "OR('Org2MSP.admin')"
+        },
+        "Endorsement": {
+          "Type": "Signature",
+          "Rule": "OR('Org2MSP.peer')"
+        }
+      },
+      "AnchorPeers": [
+        {
+          "Host": "peer0.org2.digiblocks.com",
+          "Port": 9051
+        }
+      ]
+    }
+  ],
+  "Capabilities": {
+    "Channel": {
+      "V2_0": true
+    },
+    "Orderer": {
+      "V2_0": true
+    },
+    "Application": {
+      "V2_0": true
+    }
+  },
+  "Application": {
+    "Organizations": null,
+    "Policies": {
+      "Readers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Readers"
+      },
+      "Writers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Writers"
+      },
+      "Admins": {
+        "Type": "ImplicitMeta",
+        "Rule": "MAJORITY Admins"
+      },
+      "LifecycleEndorsement": {
+        "Type": "ImplicitMeta",
+        "Rule": "MAJORITY Endorsement"
+      },
+      "Endorsement": {
+        "Type": "ImplicitMeta",
+        "Rule": "MAJORITY Endorsement"
+      }
+    },
+    "Capabilities": {
+      "V2_0": true
+    }
+  },
+  "Orderer": {
+    "OrdererType": "etcdraft",
+    "EtcdRaft": {
+      "Consenters": [
+        {
+          "Host": "orderer.digiblocks.com",
+          "Port": 7050,
+          "ClientTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer.digiblocks.com/tls/server.crt",
+          "ServerTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer.digiblocks.com/tls/server.crt"
+        }
+      ]
+    },
+    "Addresses": [
+      "orderer.digiblocks.com:7050"
+    ],
+    "BatchTimeout": "2s",
+    "BatchSize": {
+      "MaxMessageCount": 10,
+      "AbsoluteMaxBytes": "99 MB",
+      "PreferredMaxBytes": "512 KB"
+    },
+    "Organizations": null,
+    "Policies": {
+      "Readers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Readers"
+      },
+      "Writers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Writers"
+      },
+      "Admins": {
+        "Type": "ImplicitMeta",
+        "Rule": "MAJORITY Admins"
+      },
+      "BlockValidation": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Writers"
+      }
+    }
+  },
+  "Channel": {
+    "Policies": {
+      "Readers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Readers"
+      },
+      "Writers": {
+        "Type": "ImplicitMeta",
+        "Rule": "ANY Writers"
+      },
+      "Admins": {
+        "Type": "ImplicitMeta",
+        "Rule": "MAJORITY Admins"
+      }
+    },
+    "Capabilities": {
+      "V2_0": true
+    }
+  },
+  "Profiles": {
+    "BasicChannel": {
+      "Consortium": "SampleConsortium",
+      "Policies": {
+        "Readers": {
+          "Type": "ImplicitMeta",
+          "Rule": "ANY Readers"
+        },
+        "Writers": {
+          "Type": "ImplicitMeta",
+          "Rule": "ANY Writers"
+        },
+        "Admins": {
+          "Type": "ImplicitMeta",
+          "Rule": "MAJORITY Admins"
+        }
+      },
+      "Capabilities": {
+        "V2_0": true
+      },
+      "Application": {
+        "Organizations": [
+          {
+            "Name": "Org1MSP",
+            "ID": "Org1MSP",
+            "MSPDir": "crypto-config/peerOrganizations/org1.digiblocks.com/msp",
+            "Policies": {
+              "Readers": {
+                "Type": "Signature",
+                "Rule": "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+              },
+              "Writers": {
+                "Type": "Signature",
+                "Rule": "OR('Org1MSP.admin', 'Org1MSP.client')"
+              },
+              "Admins": {
+                "Type": "Signature",
+                "Rule": "OR('Org1MSP.admin')"
+              },
+              "Endorsement": {
+                "Type": "Signature",
+                "Rule": "OR('Org1MSP.peer')"
+              }
+            },
+            "AnchorPeers": [
+              {
+                "Host": "peer0.org1.digiblocks.com",
+                "Port": 7051
+              }
+            ]
+          },
+          {
+            "Name": "Org2MSP",
+            "ID": "Org2MSP",
+            "MSPDir": "crypto-config/peerOrganizations/org2.digiblocks.com/msp",
+            "Policies": {
+              "Readers": {
+                "Type": "Signature",
+                "Rule": "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+              },
+              "Writers": {
+                "Type": "Signature",
+                "Rule": "OR('Org2MSP.admin', 'Org2MSP.client')"
+              },
+              "Admins": {
+                "Type": "Signature",
+                "Rule": "OR('Org2MSP.admin')"
+              },
+              "Endorsement": {
+                "Type": "Signature",
+                "Rule": "OR('Org2MSP.peer')"
+              }
+            },
+            "AnchorPeers": [
+              {
+                "Host": "peer0.org2.digiblocks.com",
+                "Port": 9051
+              }
+            ]
+          }
+        ],
+        "Policies": {
+          "Readers": {
+            "Type": "ImplicitMeta",
+            "Rule": "ANY Readers"
+          },
+          "Writers": {
+            "Type": "ImplicitMeta",
+            "Rule": "ANY Writers"
+          },
+          "Admins": {
+            "Type": "ImplicitMeta",
+            "Rule": "MAJORITY Admins"
+          },
+          "LifecycleEndorsement": {
+            "Type": "ImplicitMeta",
+            "Rule": "MAJORITY Endorsement"
+          },
+          "Endorsement": {
+            "Type": "ImplicitMeta",
+            "Rule": "MAJORITY Endorsement"
+          }
+        },
+        "Capabilities": {
+          "V2_0": true
+        }
+      }
+    },
+    "OrdererGenesis": {
+      "Policies": {
+        "Readers": {
+          "Type": "ImplicitMeta",
+          "Rule": "ANY Readers"
+        },
+        "Writers": {
+          "Type": "ImplicitMeta",
+          "Rule": "ANY Writers"
+        },
+        "Admins": {
+          "Type": "ImplicitMeta",
+          "Rule": "MAJORITY Admins"
+        }
+      },
+      "Capabilities": {
+        "V2_0": true
+      },
+      "Orderer": {
+        "OrdererType": "etcdraft",
+        "EtcdRaft": {
+          "Consenters": [
+            {
+              "Host": "orderer.digiblocks.com",
+              "Port": 7050,
+              "ClientTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer.digiblocks.com/tls/server.crt",
+              "ServerTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer.digiblocks.com/tls/server.crt"
+            },
+            {
+              "Host": "orderer2.digiblocks.com",
+              "Port": 8050,
+              "ClientTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer2.digiblocks.com/tls/server.crt",
+              "ServerTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer2.digiblocks.com/tls/server.crt"
+            },
+            {
+              "Host": "orderer3.digiblocks.com",
+              "Port": 9050,
+              "ClientTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer3.digiblocks.com/tls/server.crt",
+              "ServerTLSCert": "crypto-config/ordererOrganizations/digiblocks.com/orderers/orderer3.digiblocks.com/tls/server.crt"
+            }
+          ]
+        },
+        "Addresses": [
+          "orderer.digiblocks.com:7050",
+          "orderer2.digiblocks.com:8050",
+          "orderer3.digiblocks.com:9050"
+        ],
+        "BatchTimeout": "2s",
+        "BatchSize": {
+          "MaxMessageCount": 10,
+          "AbsoluteMaxBytes": "99 MB",
+          "PreferredMaxBytes": "512 KB"
+        },
+        "Organizations": [
+          {
+            "Name": "OrdererOrg",
+            "ID": "OrdererMSP",
+            "MSPDir": "crypto-config/ordererOrganizations/digiblocks.com/msp",
+            "Policies": {
+              "Readers": {
+                "Type": "Signature",
+                "Rule": "OR('OrdererMSP.member')"
+              },
+              "Writers": {
+                "Type": "Signature",
+                "Rule": "OR('OrdererMSP.member')"
+              },
+              "Admins": {
+                "Type": "Signature",
+                "Rule": "OR('OrdererMSP.admin')"
+              }
+            }
+          }
+        ],
+        "Policies": {
+          "Readers": {
+            "Type": "ImplicitMeta",
+            "Rule": "ANY Readers"
+          },
+          "Writers": {
+            "Type": "ImplicitMeta",
+            "Rule": "ANY Writers"
+          },
+          "Admins": {
+            "Type": "ImplicitMeta",
+            "Rule": "MAJORITY Admins"
+          },
+          "BlockValidation": {
+            "Type": "ImplicitMeta",
+            "Rule": "ANY Writers"
+          }
+        },
+        "Capabilities": {
+          "V2_0": true
+        }
+      },
+      "Consortiums": {
+        "SampleConsortium": {
+          "Organizations": [
+            {
+              "Name": "Org1MSP",
+              "ID": "Org1MSP",
+              "MSPDir": "crypto-config/peerOrganizations/org1.digiblocks.com/msp",
+              "Policies": {
+                "Readers": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+                },
+                "Writers": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org1MSP.admin', 'Org1MSP.client')"
+                },
+                "Admins": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org1MSP.admin')"
+                },
+                "Endorsement": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org1MSP.peer')"
+                }
+              },
+              "AnchorPeers": [
+                {
+                  "Host": "peer0.org1.digiblocks.com",
+                  "Port": 7051
+                }
+              ]
+            },
+            {
+              "Name": "Org2MSP",
+              "ID": "Org2MSP",
+              "MSPDir": "crypto-config/peerOrganizations/org2.digiblocks.com/msp",
+              "Policies": {
+                "Readers": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+                },
+                "Writers": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org2MSP.admin', 'Org2MSP.client')"
+                },
+                "Admins": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org2MSP.admin')"
+                },
+                "Endorsement": {
+                  "Type": "Signature",
+                  "Rule": "OR('Org2MSP.peer')"
+                }
+              },
+              "AnchorPeers": [
+                {
+                  "Host": "peer0.org2.digiblocks.com",
+                  "Port": 9051
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
