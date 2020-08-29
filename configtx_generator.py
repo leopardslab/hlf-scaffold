@@ -76,7 +76,8 @@ class Configtx:
         self.config_orderers()
         self.config_profiles()
 
-        print(self.configtx_template)
+        with open('network/config/configtx.yaml', 'w') as f:
+            data = yaml.dump(self.configtx_template, f)
 
     def config_orderers(self):
         Consenters = [
