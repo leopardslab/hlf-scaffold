@@ -1,6 +1,6 @@
 from yaml import load, dump
 from crypto_config_generator import CryptoConfig 
-
+from new_config_generator import Configtx
 import argparse
 
 
@@ -14,8 +14,11 @@ def main():
     # args = parser.parse_args()
     # print(args.accumulate(args.integers))
 
-    config = CryptoConfig(4, 1)
-    config.set_default_values()
+    # config = CryptoConfig(4, 1)
+    # config.set_default_values()
+
+    congfigtx = Configtx(5, 1, 3)
+    #congfigtx.generate_default()
 
 if __name__ == "__main__":main()
     
